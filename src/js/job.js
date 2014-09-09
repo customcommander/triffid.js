@@ -67,7 +67,7 @@ Job.prototype = {
                 })(this);
 
             } else {
-                job.message = e.message;
+                this.message = e.message;
             }
         }
 
