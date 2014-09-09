@@ -25,7 +25,7 @@ TestRunner.prototype = {
                 this.run();
                 T.waitFor((function (testsuite) {
                     return function () {
-                        testsuite.isFinished();
+                        return testsuite.isFinished();
                     };
                 }(this)));
             }, testsuite);
