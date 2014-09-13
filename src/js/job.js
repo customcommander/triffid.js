@@ -1,4 +1,14 @@
 
+/**
+ * Job Class
+ *
+ * @module Triffid
+ * @class Triffid.Job
+ * @constructor
+ * @param name {String} Job name.
+ * @param fn {Function} The job itself.
+ * @param [context] {Object} The context in which the job executes.
+ */
 function Job(name, fn, context) {
     this.exec = function () {
         fn.apply(context);
@@ -19,6 +29,13 @@ Job.prototype = {
         this.time_end = ( new Date() ).getTime();
     },
 
+    /**
+     * Executes the job.
+     *
+     * @method run
+     * @param queue {Queue} The queue which the job belongs to.
+     * @public
+     */
     run: function (queue) {
 
         this.start();
