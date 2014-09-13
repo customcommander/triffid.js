@@ -55,6 +55,17 @@ Queue.prototype = {
         }
 
         job.run(this);
+    },
+
+    /**
+     * Returns true when the queue has finished executing all the jobs.
+     *
+     * @method isFinished
+     * @return {Boolean}
+     * @public
+     */
+    isFinished: function () {
+        return this.jobs.length === 0;
     }
 };
 
