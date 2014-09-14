@@ -3,8 +3,7 @@
  * Standard Assertions
  *
  * @module Triffid
- * @namespace Triffid
- * @class Assert
+ * @class Triffid.Assert
  * @static
  */
 T.Assert = {
