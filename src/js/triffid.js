@@ -9,3 +9,4 @@ T.run = function () {
     T.testrunner.run();
 };
 
+T.console = new BrowserConsole();

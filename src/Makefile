@@ -1,6 +1,7 @@
 minify:
 	cat \
 		js/intro.js \
+		js/console.js \
 		js/wait.js \
 		js/waitfor.js \
 		js/job.js \
