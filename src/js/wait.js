@@ -2,7 +2,7 @@
 function Wait(fn, delay, context) {
     this.fn      = fn;
     this.delay   = delay;
-    this.context = contex;
+    this.context = context;
 }
 
 T.Wait = Wait;
