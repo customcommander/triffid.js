@@ -2,10 +2,32 @@
 function TestCase(obj) {
     this.name  = obj.name;
     this.obj   = obj;
-    this.queue = new Queue();
+    this.initQueue();
 }
 
 TestCase.prototype = {
+
+    /**
+     * Initialises the queue.
+     *
+     * @method initQueue
+     * @private
+     */
+    initQueue: function () {
+        var self = this;
+        this.queue = new Queue({
+            onStart: function () {
+                T.console.group(self.name);
+            },
+            onEnd: function () {
+                T.console.info(self.name);
+                T.console.groupEnd();
+            },
+            onJobStart: function (job) {
+                T.console.info(job.name);
+            }
+        });
+    },
 
     wait: function (fn, delay) {
         T.wait(fn, delay, this);
@@ -19,9 +41,12 @@ TestCase.prototype = {
 
         var key;
 
+        this.obj.wait    = this.wait;
+        this.obj.waitFor = this.waitFor;
+
         for (key in this.obj) {
-            if (typeof this.obj[key] === 'function') {
-                this.queue.add(key, this.obj[key], this);
+            if (key !== 'wait' && key !== 'waitFor' && typeof this.obj[key] === 'function') {
+                this.queue.add(key, this.obj[key], this.obj);
             }
         }
 
@@ -29,7 +54,7 @@ TestCase.prototype = {
     },
 
     isFinished: function () {
-        return this.queue.empty;
+        return this.queue.isFinished();
     }
 };
 

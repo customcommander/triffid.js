@@ -5,14 +5,62 @@
  * @module Triffid
  * @class Triffid.Queue
  * @constructor
+ * @param [conf] {Object} A configuration object for the queue.
+ * @param [conf.onStart] {Function} Function to execute when the queue starts.
+ * @param [conf.onEnd] {Function} Function to execute when the queue ends.
+ * @param [conf.onJobStart] {Function} Function to execute when a job in the queue starts.
+ * @param [conf.onJobEnd] {Function} Function to execute when a job in the queue ends.
  */
-function Queue() {
+function Queue(conf) {
     this.jobs = [];
+    this.initConf(conf);
 }
 
 Queue.prototype = {
 
-    empty: false,
+    /**
+     * Indicates whether the queue has started.
+     *
+     * @property started
+     * @type {Number}
+     * @private
+     */
+    started: false,
+
+    /**
+     * Indicates whether the queue has ended.
+     *
+     * @property ended
+     * @type {Number}
+     * @private
+     */
+    ended: false,
+
+    /**
+     * Reference to the current job.
+     *
+     * @property job
+     * @type {Triffid.Job}
+     * @private
+     */
+    job: null,
+
+    /**
+     * Initialises the configuration of the queue.
+     *
+     * @method initConf
+     * @param [conf] {Object}
+     * @private
+     * @todo proper check
+     */
+    initConf: function (conf) {
+        conf = conf || {};
+        conf.onStart    = conf.onStart    || function () {};
+        conf.onEnd      = conf.onEnd      || function () {};
+        conf.onJobStart = conf.onJobStart || function () {};
+        conf.onJobEnd   = conf.onJobEnd   || function () {};
+        this.conf = conf;
+    },
 
     /**
      * Add a new job to the queue.
@@ -36,7 +84,10 @@ Queue.prototype = {
      * @public
      */
     next: function () {
-        this.run();
+        if (!this.isFinished()) {
+            this.conf.onJobEnd(this.job);
+            this.run();
+        }
     },
 
     /**
@@ -47,14 +98,30 @@ Queue.prototype = {
      */
     run: function () {
 
-        var job = this.jobs.shift();
+        if (!this.isEmpty() && !this.started) {
+            this.started = true;
+            this.conf.onStart();
+        }
 
-        if (!job) {
-            this.empty = true;
+        if (this.isEmpty() && this.started) {
+            this.ended = true;
+            this.conf.onEnd();
             return;
         }
 
-        job.run(this);
+        this.job = this.jobs.shift();
+        this.conf.onJobStart(this.job);
+        this.job.run(this);
+    },
+
+    /**
+     * Returns true if there is no job in the queue.
+     *
+     * @method isEmpty
+     * @private
+     */
+    isEmpty: function () {
+        return this.jobs.length === 0;
     },
 
     /**
@@ -65,7 +132,7 @@ Queue.prototype = {
      * @public
      */
     isFinished: function () {
-        return this.jobs.length === 0;
+        return this.started && this.ended;
     }
 };
 

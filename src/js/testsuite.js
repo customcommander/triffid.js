@@ -34,7 +34,7 @@ TestSuite.prototype = {
     },
 
     isFinished: function () {
-        return this.queue.empty;
+        return this.queue.isFinished();
     }
 };
 
