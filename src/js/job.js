@@ -10,6 +10,7 @@
  * @param [context] {Object} The context in which the job executes.
  */
 function Job(name, fn, context) {
+    this.name = name;
     this.exec = function () {
         fn.apply(context);
     };
