@@ -60,6 +60,8 @@ Job.prototype = {
                     };
                 }(this)), e.delay);
 
+                return;
+
             } else if (e instanceof WaitFor) {
 
                 (function (job){
@@ -83,6 +85,8 @@ Job.prototype = {
                     }(job)), e.repeat);
 
                 })(this);
+
+                return;
 
             } else {
                 this.message = e.message;
