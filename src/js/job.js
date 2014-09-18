@@ -43,6 +43,7 @@ Job.prototype = {
 
         try {
             this.exec();
+            this.success = true;
         } catch (e) {
             if (e instanceof Wait) {
 
@@ -51,8 +52,10 @@ Job.prototype = {
 
                         try {
                             e.fn.apply(e.context);
-                        } catch (e) {
-                            job.message = e.message;
+                            job.success = true;
+                        } catch (err) {
+                            job.message = err.message;
+                            job.success = false;
                         }
 
                         job.end();
@@ -74,8 +77,10 @@ Job.prototype = {
 
                                 try {
                                     e.fn.apply(e.context);
-                                } catch (e) {
-                                    job.message = e.message;
+                                    job.success = true;
+                                } catch (err) {
+                                    job.message = err.message;
+                                    job.success = false;
                                 }
 
                                 job.end();
@@ -90,6 +95,7 @@ Job.prototype = {
 
             } else {
                 this.message = e.message;
+                this.success = false;
             }
         }
 

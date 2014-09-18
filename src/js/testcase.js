@@ -15,6 +15,8 @@ TestCase.prototype = {
      */
     initQueue: function () {
         var self = this;
+        var testresult;
+
         this.queue = new Queue({
             onStart: function () {
                 T.console.group(self.name);
@@ -24,7 +26,16 @@ TestCase.prototype = {
                 T.console.groupEnd();
             },
             onJobStart: function (job) {
-                T.console.info(job.name);
+                testresult = job.name;
+            },
+            onJobEnd: function (job) {
+                if (job.success) {
+                    testresult += ': passed.';
+                    T.console.pass(testresult);
+                } else {
+                    testresult += ': ' + job.message;
+                    T.console.fail(testresult);
+                }
             }
         });
     },
