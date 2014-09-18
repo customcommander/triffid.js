@@ -23,5 +23,22 @@ T.Assert = {
         if (value !== true) {
             throw new Error(message);
         }
+    },
+
+    /**
+     * Asserts that a value is false (and not falsy).
+     *
+     * @example
+     *     Triffid.Assert.isFalse(false); // pass
+     *     Triffid.Assert.isFalse(0);     // fail
+     *
+     * @method isFalse
+     * @param value {Any} The value to test.
+     * @param [message] {String} Failure message should the assertion fails.
+     */
+    isFalse: function (value, message) {
+        if (value !== false) {
+            throw new Error(message);
+        }
     }
 };
