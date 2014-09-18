@@ -20,9 +20,17 @@ T.Assert = {
      * @param [message] {String} Failure message should the assertion fails.
      */
     isTrue: function (value, message) {
-        if (value !== true) {
-            T.fail(message);
+
+        if (value === true) {
+            return;
         }
+
+        message = message || '';
+        message+= "\n";
+        message+= "Expected true (boolean) ";
+        message+= "but got " + value + " (" + (typeof value) + ") instead.";
+
+        T.fail(message);
     },
 
     /**
@@ -37,8 +45,16 @@ T.Assert = {
      * @param [message] {String} Failure message should the assertion fails.
      */
     isFalse: function (value, message) {
-        if (value !== false) {
-            T.fail(message);
+
+        if (value === false) {
+            return;
         }
+
+        message = message || '';
+        message+= "\n";
+        message+= "Expected false (boolean) ";
+        message+= "but got " + value + " (" + (typeof value) + ") instead.";
+
+        T.fail(message);
     }
 };
