@@ -21,7 +21,7 @@ T.Assert = {
      */
     isTrue: function (value, message) {
         if (value !== true) {
-            throw new Error(message);
+            T.fail(message);
         }
     },
 
@@ -38,7 +38,7 @@ T.Assert = {
      */
     isFalse: function (value, message) {
         if (value !== false) {
-            throw new Error(message);
+            T.fail(message);
         }
     }
 };

@@ -6,6 +6,7 @@ minify:
 		js/waitfor.js \
 		js/job.js \
 		js/queue.js \
+		js/assertion-error.js \
 		js/assert.js \
 		js/testcase.js \
 		js/testsuite.js \

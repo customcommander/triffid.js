@@ -54,7 +54,7 @@ Job.prototype = {
                             e.fn.apply(e.context);
                             job.success = true;
                         } catch (err) {
-                            job.message = err.message;
+                            job.message = err instanceof AssertionError ? err.message : 'unexpected error: ' + err.message;
                             job.success = false;
                         }
 
@@ -79,7 +79,7 @@ Job.prototype = {
                                     e.fn.apply(e.context);
                                     job.success = true;
                                 } catch (err) {
-                                    job.message = err.message;
+                                    job.message = err instanceof AssertionError ? err.message : 'unexpected error: ' + err.message;
                                     job.success = false;
                                 }
 
@@ -94,7 +94,7 @@ Job.prototype = {
                 return;
 
             } else {
-                this.message = e.message;
+                this.message = e instanceof AssertionError ? e.message : 'unexpected error: ' + e.message;
                 this.success = false;
             }
         }
