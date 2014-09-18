@@ -3,11 +3,33 @@ Triffid.suite('assert tests')
         name: 'standard assertions',
 
         'test: isTrue()': function () {
+
             Triffid.Assert.isTrue(true, 'expected true to be true');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isTrue(1);
+            }, null, 'expected failure because 1 (number) is not a boolean');
         },
 
         'test: isFalse()': function () {
+
             Triffid.Assert.isFalse(false, 'expected false to be false');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isFalse(0);
+            }, null, 'expected failure because 0 (number) is not a boolean');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isFalse(null);
+            }, null, 'expected failure because null is not a boolean');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isFalse(undefined);
+            }, null, 'expected failure because undefined is not a boolean');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isFalse('');
+            }, null, 'expected failure because "" (empty string) is not a boolean');
         },
 
         'test: throwsError()': function () {
