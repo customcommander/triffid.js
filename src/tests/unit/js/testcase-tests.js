@@ -10,6 +10,8 @@ Triffid.suite('test case suite')
 
             testcase = new Triffid.TestCase({
 
+                quiet: true,
+
                 name: 'test1',
 
                 'should run test 1': function () {
@@ -38,6 +40,8 @@ Triffid.suite('test case suite')
             var flag = '';
 
             testcase = new Triffid.TestCase({
+
+                quiet: true,
 
                 name: 'test2',
 

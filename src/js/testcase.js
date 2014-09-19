@@ -6,6 +6,8 @@
  * @class Triffid.TestCase
  * @constructor
  * @param obj {Object} The test case body.
+ * @param [obj.quiet=false] {Boolean} If true the test case will be silent and won't output anything.
+ * @todo proper check of the obj parameter
  */
 function TestCase(obj) {
     this.name  = obj.name;
@@ -25,14 +27,14 @@ TestCase.prototype = {
         var self = this;
 
         this.queue = new Queue({
-            onStart: function () {
+            onStart: self.obj.quiet ? null : function () {
                 T.console.group(self.name);
             },
-            onEnd: function () {
+            onEnd: self.obj.quiet ? null : function () {
                 T.console.info(self.name);
                 T.console.groupEnd();
             },
-            onJobEnd: function (job) {
+            onJobEnd: self.obj.quiet ? null : function (job) {
                 var testresult = job.name;
                 if (job.success) {
                     testresult += ': passed.';
