@@ -10,10 +10,28 @@
 function TestSuite(name) {
     this.name      = name;
     this.testcases = [];
-    this.queue     = new Queue();
+    this.initQueue();
 }
 
 TestSuite.prototype = {
+
+    /**
+     * Initialises the queue.
+     *
+     * @method initQueue
+     * @private
+     */
+    initQueue: function () {
+        var self = this;
+        this.queue = new Queue({
+            onStart: function () {
+                T.console.group(self.name);
+            },
+            onEnd: function () {
+                T.console.groupEnd();
+            }
+        });
+    },
 
     /**
      * Adds a test case to the suite.
