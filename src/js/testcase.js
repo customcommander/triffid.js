@@ -31,7 +31,6 @@ TestCase.prototype = {
                 T.console.group(self.name);
             },
             onEnd: self.obj.quiet ? null : function () {
-                T.console.info(self.name);
                 T.console.groupEnd();
             },
             onJobEnd: self.obj.quiet ? null : function (job) {
