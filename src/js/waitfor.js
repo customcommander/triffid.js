@@ -5,7 +5,3 @@ function WaitFor(cond, repeat, fn, context) {
     this.fn      = fn || function () {};
     this.context = context || window;
 }
-
-T.waitFor = function (cond, repeat, fn, context) {
-    throw new WaitFor(cond, repeat, fn, context);
-};
