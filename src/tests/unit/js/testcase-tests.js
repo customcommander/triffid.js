@@ -1,4 +1,4 @@
-Triffid.suite('test case tests')
+Triffid.suite('test case suite')
     .add({
 
         name: 'smoke tests',

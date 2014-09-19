@@ -1,4 +1,4 @@
-Triffid.suite('assert tests')
+Triffid.suite('assertion suite')
     .add({
         name: 'standard assertions',
 
