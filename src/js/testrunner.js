@@ -38,5 +38,3 @@ TestRunner.prototype = {
         return this.queue.isFinished();
     }
 };
-
-T.TestRunner = TestRunner;

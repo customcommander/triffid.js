@@ -68,5 +68,3 @@ TestCase.prototype = {
         return this.queue.isFinished();
     }
 };
-
-T.TestCase = TestCase;

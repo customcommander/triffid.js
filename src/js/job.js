@@ -103,5 +103,3 @@ Job.prototype = {
         queue.next();
     }
 };
-
-T.Job = Job;

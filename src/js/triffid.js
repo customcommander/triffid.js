@@ -29,3 +29,11 @@ T.console = new BrowserConsole();
 T.fail = function (message) {
     throw new AssertionError(message);
 };
+
+T.Wait       = Wait;
+T.WaitFor    = WaitFor;
+T.Job        = Job;
+T.Queue      = Queue;
+T.TestCase   = TestCase;
+T.TestSuite  = TestSuite;
+T.TestRunner = TestRunner;

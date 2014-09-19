@@ -37,5 +37,3 @@ TestSuite.prototype = {
         return this.queue.isFinished();
     }
 };
-
-T.TestSuite = TestSuite;

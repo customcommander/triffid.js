@@ -135,5 +135,3 @@ Queue.prototype = {
         return this.started && this.ended;
     }
 };
-
-T.Queue = Queue;
