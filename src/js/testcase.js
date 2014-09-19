@@ -1,4 +1,12 @@
 
+/**
+ * TestCase Class
+ *
+ * @module Triffid
+ * @class Triffid.TestCase
+ * @constructor
+ * @param obj {Object} The test case body.
+ */
 function TestCase(obj) {
     this.name  = obj.name;
     this.obj   = obj;
@@ -45,6 +53,11 @@ TestCase.prototype = {
         T.waitFor(cond, repeat, fn, this);
     },
 
+    /**
+     * Runs the test case.
+     *
+     * @method run
+     */
     run: function () {
 
         var key;
@@ -61,6 +74,12 @@ TestCase.prototype = {
         this.queue.run();
     },
 
+    /**
+     * Indicates whether the test case has finished.
+     *
+     * @method isFinished
+     * @return {Boolean}
+     */
     isFinished: function () {
         return this.queue.isFinished();
     }
