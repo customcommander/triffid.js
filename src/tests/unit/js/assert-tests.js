@@ -65,5 +65,16 @@ Triffid.suite('assertion suite')
                     throw new Error('abc');
                 }, 'xyz');
             }, null,  'should have failed if error message does not match');
+        },
+
+        'test: isString()': function () {
+
+            Triffid.Assert.isString("foobar", "expected success because 'foobar' is a string");
+            Triffid.Assert.isString(""      , "expected success because an empty string is still a string");
+            Triffid.Assert.isString(" \r\n ", "expected success because a white space string is still a string");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isString([]);
+            }, null, "expected failure because an array is not a string");
         }
     })

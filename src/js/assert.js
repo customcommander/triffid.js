@@ -114,5 +114,25 @@ T.Assert = {
             message+= "Expected an error to have been thrown but it didn't.";
             T.fail(message);
         }
+    },
+
+    /**
+     * Asserts that a value is a string.
+     *
+     * @method isString
+     * @param value {String} The value to test.
+     * @param [message] {String} Failure message should the assertion fails.
+     */
+    isString: function (value, message) {
+
+        if (typeof value === 'string') {
+            return;
+        }
+
+        message = message || "";
+        message+= "\n";
+        message+= "Expected a string but got " + value + " (" + (typeof value) + ") instead.";
+
+        T.fail(message);
     }
 };
