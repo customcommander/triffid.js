@@ -76,5 +76,21 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isString([]);
             }, null, "expected failure because an array is not a string");
+        },
+
+        'test: isNumber()': function () {
+
+            Triffid.Assert.isNumber(10       , "expected success because 10 is a number");
+            Triffid.Assert.isNumber(NaN      , "expected success because NaN is a number, well...");
+            Triffid.Assert.isNumber(Infinity , "expected success because Infinity is a number");
+            Triffid.Assert.isNumber(-Infinity, "expected success because -Infinity is a number");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isNumber('10');
+            }, null, "expected failure because '10' (string) is not a number");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isNumber([]);
+            }, null, "expected failure because an array is not a number");
         }
     })

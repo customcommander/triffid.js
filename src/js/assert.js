@@ -134,5 +134,33 @@ T.Assert = {
         message+= "Expected a string but got " + value + " (" + (typeof value) + ") instead.";
 
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is a number.
+     *
+     * Please note that `NaN`, `Infinity` and `-Infinity` will all pass this test.
+     *
+     * @example
+     *     Triffid.Assert.isNumber(10);        // pass
+     *     Triffid.Assert.isNumber('10');      // fail
+     *     Triffid.Assert.isNumber(NaN);       // pass
+     *     Triffid.Assert.isNumber(Infinity);  // pass
+     *     Triffid.Assert.isNumber(-Infinity); // pass
+     *
+     * @method isNumber
+     * @param value {Any} The value to test.
+     * @param [message] {String} Additional message to display in case of failure.
+     */
+    isNumber: function (value, message) {
+
+        if (typeof value === 'number') {
+            return;
+        }
+
+        message = message ? message + "\n" : "";
+        message+= "Expected a number but got " + value + " (" + (typeof value) + ") instead.";
+
+        T.fail(message);
     }
 };
