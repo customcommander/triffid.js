@@ -15,7 +15,6 @@ TestCase.prototype = {
      */
     initQueue: function () {
         var self = this;
-        var testresult;
 
         this.queue = new Queue({
             onStart: function () {
@@ -25,10 +24,8 @@ TestCase.prototype = {
                 T.console.info(self.name);
                 T.console.groupEnd();
             },
-            onJobStart: function (job) {
-                testresult = job.name;
-            },
             onJobEnd: function (job) {
+                var testresult = job.name;
                 if (job.success) {
                     testresult += ': passed.';
                     T.console.pass(testresult);
