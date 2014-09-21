@@ -270,5 +270,29 @@ var Assert = {
         message = this.initMessage(message);
         message+= "Expected undefined but got " + value + " (" + (typeof value) + ") instead";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is not undefined.
+     *
+     * @example
+     *     Triffid.Assert.isNotUndefined(null);      // pass
+     *     Triffid.Assert.isNotUndefined(undefined); // fail
+     *
+     * @method isNotUndefined
+     * @param value {Any} The value to test.
+     * @param [message] {String} Additional message to display in case of failure.
+     */
+    isNotUndefined: function (value, message) {
+
+        var und;
+
+        if (value !== und) {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected a non undefined value";
+        T.fail(message);
     }
 };
