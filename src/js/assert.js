@@ -9,6 +9,19 @@
 T.Assert = {
 
     /**
+     * Makes sure that the user-defined message is ready to be used as a
+     * basis for the final error message.
+     *
+     * @method initMessage
+     * @param message {String} User-defined error message.
+     * @return {String}
+     * @protected
+     */
+    initMessage: function (message) {
+        return typeof message !== "string" ? "" : message + "\n";
+    },
+
+    /**
      * Asserts that a value is true (and not truthy).
      *
      * @example
@@ -25,10 +38,8 @@ T.Assert = {
             return;
         }
 
-        message = message || '';
-        message+= "\n";
-        message+= "Expected true (boolean) ";
-        message+= "but got " + value + " (" + (typeof value) + ") instead.";
+        message = this.initMessage(message);
+        message+= "Expected true (boolean) but got " + value + " (" + (typeof value) + ") instead.";
 
         T.fail(message);
     },
@@ -50,10 +61,8 @@ T.Assert = {
             return;
         }
 
-        message = message || '';
-        message+= "\n";
-        message+= "Expected false (boolean) ";
-        message+= "but got " + value + " (" + (typeof value) + ") instead.";
+        message = this.initMessage(message);
+        message+= "Expected false (boolean) but got " + value + " (" + (typeof value) + ") instead.";
 
         T.fail(message);
     },
@@ -86,31 +95,24 @@ T.Assert = {
 
         var didnt_throw = false;
 
+        message = this.initMessage(message);
+
         try {
             func();
             didnt_throw = true;
         } catch (e) {
 
             if (typeof err === "function" && !(e instanceof err)) {
-                message = message || "";
-                message+= "\n";
                 message+= "Error thrown is not from expected constructor.";
-
                 T.fail(message);
 
             } else if (typeof err === "string" && e.message && e.message !== err) {
-                message = message || "";
-                message+= "\n";
-                message+= "Expected error message to have been '"+ e.message +"' ";
-                message+= "but got '"+err+"' instead.";
-
+                message+= "Expected error message to have been '"+ e.message +"' but got '"+err+"' instead.";
                 T.fail(message);
             }
         }
 
         if (didnt_throw) {
-            message = message || "";
-            message+= "\n";
             message+= "Expected an error to have been thrown but it didn't.";
             T.fail(message);
         }
@@ -129,8 +131,7 @@ T.Assert = {
             return;
         }
 
-        message = message || "";
-        message+= "\n";
+        message = this.initMessage(message);
         message+= "Expected a string but got " + value + " (" + (typeof value) + ") instead.";
 
         T.fail(message);
@@ -159,7 +160,7 @@ T.Assert = {
             return;
         }
 
-        message = message ? message + "\n" : "";
+        message = this.initMessage(message);
         message+= "Expected a number but got " + value + " (" + (typeof value) + ") instead.";
 
         T.fail(message);
@@ -183,7 +184,7 @@ T.Assert = {
      */
     isFiniteNumber: function (value, message) {
 
-        message = message ? message + "\n" : "";
+        message = this.initMessage(message);
 
         if (typeof value !== 'number') {
             message = "Expected a number but got " + value + " (" + (typeof value) + ") instead";
