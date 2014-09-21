@@ -100,5 +100,50 @@ Triffid.suite('test case suite')
                 Triffid.Assert.isTrue('A1BA2BA3B' === flag,
                     'expected setUp and tearDown to have run before and after each test');
             });
+        },
+
+        'should run `init` and `destroy` before and after the test case': function () {
+
+            var flag = '';
+
+            var testcase = new Triffid.TestCase({
+
+                quiet: true,
+
+                init: function () {
+                    flag += '000';
+                },
+
+                destroy: function () {
+                    flag += '999';
+                },
+
+                setUp: function () {
+                    flag += 'A';
+                },
+
+                tearDown: function () {
+                    flag += 'B';
+                },
+
+                test1: function () {
+                    flag += '1';
+                },
+
+                test2: function () {
+                    flag += '2';
+                },
+
+                test3: function () {
+                    flag += '3';
+                }
+            });
+
+            testcase.run();
+
+            this.waitFor(function () { return testcase.isFinished(); }, 50, function () {
+                Triffid.Assert.isTrue('000A1BA2BA3B999' === flag,
+                    'expected init and destroy to have run before and after the test case');
+            });
         }
     });

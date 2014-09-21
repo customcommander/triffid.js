@@ -36,8 +36,10 @@ TestCase.prototype = {
             T.waitFor(cond, repeat, fn, this);
         };
 
+        obj.init     = typeof obj.init     === 'function' ? obj.init     : function () {};
         obj.setUp    = typeof obj.setUp    === 'function' ? obj.setUp    : function () {};
         obj.tearDown = typeof obj.tearDown === 'function' ? obj.tearDown : function () {};
+        obj.destroy  = typeof obj.destroy  === 'function' ? obj.destroy  : function () {};
 
         this.obj = obj;
     },
@@ -94,6 +96,10 @@ TestCase.prototype = {
             return false;
         }
 
+        if (name === 'init' || name === 'destroy') {
+            return false;
+        }
+
         return true;
     },
 
@@ -106,6 +112,8 @@ TestCase.prototype = {
 
         var key;
 
+        this.queue.add('init', this.obj.init, this.obj);
+
         for (key in this.obj) {
             if (typeof this.obj[key] === 'function' && this.isTestName(key)) {
                 this.queue.add('setUp'   , this.obj.setUp   , this.obj);
@@ -113,6 +121,8 @@ TestCase.prototype = {
                 this.queue.add('tearDown', this.obj.tearDown, this.obj);
             }
         }
+
+        this.queue.add('destroy', this.obj.destroy, this.obj);
 
         this.queue.run();
     },
