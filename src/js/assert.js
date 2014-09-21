@@ -140,6 +140,7 @@ T.Assert = {
      * Asserts that a value is a number.
      *
      * Please note that `NaN`, `Infinity` and `-Infinity` will all pass this test.
+     * If you need to exclude these values use `Triffid.Assert.isFiniteNumber()` instead.
      *
      * @example
      *     Triffid.Assert.isNumber(10);        // pass
@@ -162,5 +163,43 @@ T.Assert = {
         message+= "Expected a number but got " + value + " (" + (typeof value) + ") instead.";
 
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is a finite number.
+     *
+     * Same as `Triffid.Assert.isNumber()` but will fail for `NaN`, `Infinity` and `-Infinity`.
+     *
+     * @example
+     *     Triffid.Assert.isNumber(10);        // pass
+     *     Triffid.Assert.isNumber('10');      // fail
+     *     Triffid.Assert.isNumber(NaN);       // fail
+     *     Triffid.Assert.isNumber(Infinity);  // fail
+     *     Triffid.Assert.isNumber(-Infinity); // fail
+     *
+     * @method isFiniteNumber
+     * @param value {Any} The value to test.
+     * @param [message] {String} Additional message to display in case of failure.
+     */
+    isFiniteNumber: function (value, message) {
+
+        message = message ? message + "\n" : "";
+
+        if (typeof value !== 'number') {
+            message = "Expected a number but got " + value + " (" + (typeof value) + ") instead";
+            T.fail(message);
+
+        } else if (value === Infinity) {
+            message = "Expected a finite number but got Infinity instead";
+            T.fail(message);
+
+        } else if (value === -Infinity) {
+            message = "Expected a finite number but got -Infinity instead";
+            T.fail(message);
+
+        } else if (isNaN(value)) {
+            message = "Expected a finite number but got NaN instead";
+            T.fail(message);
+        }
     }
 };

@@ -92,5 +92,30 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isNumber([]);
             }, null, "expected failure because an array is not a number");
+        },
+
+        'test: isFiniteNumber()': function () {
+
+            Triffid.Assert.isFiniteNumber(10, "expected success because 10 is a finite number");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isFiniteNumber(NaN);
+            }, null, "expected failure because NaN is not a finite number");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isFiniteNumber(Infinity);
+            }, null, "expected failure because Infinity is not a finite number");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isFiniteNumber(-Infinity);
+            }, null, "expected failure because -Infinity is not a finite number");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isFiniteNumber('10');
+            }, null, "expected failure because '10' (string) is not a finite number");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isFiniteNumber([]);
+            }, null, "expected failure because an array is not a finite number");
         }
     })
