@@ -55,6 +55,23 @@ TestCase.prototype = {
     },
 
     /**
+     * Indicates whether a string represents a valid test name.
+     *
+     * @method isTestName
+     * @param name {String} Candidate string for a test name
+     * @return {Boolean}
+     * @private
+     */
+    isTestName: function (name) {
+
+        if (name === 'wait' || name === 'waitFor') {
+            return false;
+        }
+
+        return true;
+    },
+
+    /**
      * Runs the test case.
      *
      * @method run
@@ -67,7 +84,7 @@ TestCase.prototype = {
         this.obj.waitFor = this.waitFor;
 
         for (key in this.obj) {
-            if (key !== 'wait' && key !== 'waitFor' && typeof this.obj[key] === 'function') {
+            if (typeof this.obj[key] === 'function' && this.isTestName(key)) {
                 this.queue.add(key, this.obj[key], this.obj);
             }
         }
