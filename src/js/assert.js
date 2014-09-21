@@ -6,7 +6,7 @@
  * @class Triffid.Assert
  * @static
  */
-T.Assert = {
+var Assert = {
 
     /**
      * Makes sure that the user-defined message is ready to be used as a

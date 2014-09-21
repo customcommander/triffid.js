@@ -63,6 +63,7 @@ T.Wait       = Wait;
 T.WaitFor    = WaitFor;
 T.Job        = Job;
 T.Queue      = Queue;
+T.Assert     = Assert;
 T.TestCase   = TestCase;
 T.TestSuite  = TestSuite;
 T.TestRunner = TestRunner;
