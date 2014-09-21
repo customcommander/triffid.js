@@ -10,12 +10,34 @@
  * @todo proper check of the obj parameter
  */
 function TestCase(obj) {
-    this.name  = obj.name;
-    this.obj   = obj;
+    this.name = obj.name;
+    this.initTestCase(obj);
     this.initQueue();
 }
 
 TestCase.prototype = {
+
+    /**
+     * Initialises the test case body.
+     *
+     * @method initTestCase
+     * @param obj {Object} Test case body
+     * @private
+     * @todo proper check
+     * @todo throw error if some reserved names were already defined
+     */
+    initTestCase: function (obj) {
+
+        obj.wait = function (fn, delay) {
+            T.wait(fn, delay, this);
+        };
+
+        obj.waitFor = function (cond, repeat, fn) {
+            T.waitFor(cond, repeat, fn, this);
+        };
+
+        this.obj = obj;
+    },
 
     /**
      * Initialises the queue.
@@ -46,14 +68,6 @@ TestCase.prototype = {
         });
     },
 
-    wait: function (fn, delay) {
-        T.wait(fn, delay, this);
-    },
-
-    waitFor: function (cond, repeat, fn) {
-        T.waitFor(cond, repeat, fn, this);
-    },
-
     /**
      * Indicates whether a string represents a valid test name.
      *
@@ -79,9 +93,6 @@ TestCase.prototype = {
     run: function () {
 
         var key;
-
-        this.obj.wait    = this.wait;
-        this.obj.waitFor = this.waitFor;
 
         for (key in this.obj) {
             if (typeof this.obj[key] === 'function' && this.isTestName(key)) {
