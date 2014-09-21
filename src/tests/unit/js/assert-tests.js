@@ -150,5 +150,16 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isNotNull(null);
             }, null, "expected failure because null is not a non null value");
+        },
+
+        'test: isUndefined()': function () {
+
+            var und;
+
+            Triffid.Assert.isUndefined(und, "expected success because undefined is undefined");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isUndefined(null);
+            }, null, "expected failure because null is not undefined");
         }
     })
