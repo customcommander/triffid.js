@@ -139,5 +139,16 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isNull([]);
             }, null, "expected failure because an empty array is not null");
+        },
+
+        'test: isNotNull()': function () {
+            var und;
+
+            Triffid.Assert.isNotNull(false, "expected success because false is not null");
+            Triffid.Assert.isNotNull(und  , "expected success because undefined is not null");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isNotNull(null);
+            }, null, "expected failure because null is not a non null value");
         }
     })

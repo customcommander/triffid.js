@@ -224,5 +224,27 @@ var Assert = {
         message = this.initMessage(message);
         message+= "Expected null but got " + value + " (" + (typeof value) + ") instead";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is not null.
+     *
+     * @example
+     *     Triffid.Assert.isNotNull(undefined); // pass
+     *     Triffid.Assert.isNotNull(null);      // fail
+     *
+     * @method isNotNull
+     * @param value {Any} The value to test.
+     * @param [message] {String} Additional message to display in case of failure.
+     */
+    isNotNull: function (value, message) {
+
+        if (value !== null) {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected a non null value";
+        T.fail(message);
     }
 };
