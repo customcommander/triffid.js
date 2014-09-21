@@ -63,5 +63,42 @@ Triffid.suite('test case suite')
             this.waitFor(function () { return testcase.isFinished(); }, 50, function () {
                 Triffid.Assert.isTrue( 'abc' === flag, 'expected tests to have run sequentially' );
             });
+        },
+
+        'should run `setUp` and `tearDown` before and after each test': function () {
+
+            var flag = '';
+
+            var testcase = new Triffid.TestCase({
+
+                quiet: true,
+
+                setUp: function () {
+                    flag += 'A';
+                },
+
+                tearDown: function () {
+                    flag += 'B';
+                },
+
+                test1: function () {
+                    flag += '1';
+                },
+
+                test2: function () {
+                    flag += '2';
+                },
+
+                test3: function () {
+                    flag += '3';
+                }
+            });
+
+            testcase.run();
+
+            this.waitFor(function () { return testcase.isFinished(); }, 50, function () {
+                Triffid.Assert.isTrue('A1BA2BA3B' === flag,
+                    'expected setUp and tearDown to have run before and after each test');
+            });
         }
     });

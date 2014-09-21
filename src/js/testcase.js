@@ -36,6 +36,9 @@ TestCase.prototype = {
             T.waitFor(cond, repeat, fn, this);
         };
 
+        obj.setUp    = typeof obj.setUp    === 'function' ? obj.setUp    : function () {};
+        obj.tearDown = typeof obj.tearDown === 'function' ? obj.tearDown : function () {};
+
         this.obj = obj;
     },
 
@@ -57,6 +60,11 @@ TestCase.prototype = {
             },
             onJobEnd: self.obj.quiet ? null : function (job) {
                 var testresult = job.name;
+
+                if (!self.isTestName(job.name)) {
+                    return;
+                }
+
                 if (job.success) {
                     testresult += ': passed.';
                     T.console.pass(testresult);
@@ -82,6 +90,10 @@ TestCase.prototype = {
             return false;
         }
 
+        if (name === 'setUp' || name === 'tearDown') {
+            return false;
+        }
+
         return true;
     },
 
@@ -96,7 +108,9 @@ TestCase.prototype = {
 
         for (key in this.obj) {
             if (typeof this.obj[key] === 'function' && this.isTestName(key)) {
-                this.queue.add(key, this.obj[key], this.obj);
+                this.queue.add('setUp'   , this.obj.setUp   , this.obj);
+                this.queue.add(key       , this.obj[key]    , this.obj);
+                this.queue.add('tearDown', this.obj.tearDown, this.obj);
             }
         }
 
