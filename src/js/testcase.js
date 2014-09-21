@@ -71,7 +71,7 @@ TestCase.prototype = {
                     testresult += ': passed.';
                     T.console.pass(testresult);
                 } else {
-                    testresult += ': ' + job.message;
+                    testresult += ': failed: ' + job.error.message;
                     T.console.fail(testresult);
                 }
             }
