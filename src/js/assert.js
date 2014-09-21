@@ -202,5 +202,27 @@ var Assert = {
             message = "Expected a finite number but got NaN instead";
             T.fail(message);
         }
+    },
+
+    /**
+     * Asserts that a value is null.
+     *
+     * @example
+     *     Triffid.Assert.isNull(null);      // pass
+     *     Triffid.Assert.isNull(undefined); // fail
+     *
+     * @method isNull
+     * @param value {Any} The value to test.
+     * @param [message] {String} Additional message to display in case of failure.
+     */
+    isNull: function (value, message) {
+
+        if (value === null) {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected null but got " + value + " (" + (typeof value) + ") instead";
+        T.fail(message);
     }
 };

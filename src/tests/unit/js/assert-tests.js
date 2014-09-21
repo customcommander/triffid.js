@@ -117,5 +117,27 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isFiniteNumber([]);
             }, null, "expected failure because an array is not a finite number");
+        },
+
+        'test: isNull()': function () {
+
+            var und;
+
+            Triffid.Assert.isNull(null, "expected success because null is null");
+
+            // check against lazyness (e.g. undefined == null; true)
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isNull(und);
+            }, null, "expected failure because undefined is not null");
+
+            // check against lazyness (e.g. if (!value))
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isNull(false);
+            }, null, "expected failure because false is not null");
+
+            // check type detection is working
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isNull([]);
+            }, null, "expected failure because an empty array is not null");
         }
     })
