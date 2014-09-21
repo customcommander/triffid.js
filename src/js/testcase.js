@@ -81,26 +81,16 @@ TestCase.prototype = {
     /**
      * Indicates whether a string represents a valid test name.
      *
+     * A test is a function which name starts with the word "test" or contains
+     * one or more spaces.
+     *
      * @method isTestName
      * @param name {String} Candidate string for a test name
      * @return {Boolean}
      * @private
      */
     isTestName: function (name) {
-
-        if (name === 'wait' || name === 'waitFor') {
-            return false;
-        }
-
-        if (name === 'setUp' || name === 'tearDown') {
-            return false;
-        }
-
-        if (name === 'init' || name === 'destroy') {
-            return false;
-        }
-
-        return true;
+        return name.indexOf(' ') > -1 || name.indexOf('test') === 0;
     },
 
     /**

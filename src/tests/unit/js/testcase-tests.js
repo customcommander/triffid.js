@@ -1,6 +1,35 @@
 Triffid.suite('test case suite')
     .add({
 
+        name: 'a test',
+
+        'is a function which name contains space(s) or starts with the word "test"': function () {
+
+            var flag = '';
+            var testcase = new Triffid.TestCase({
+
+                quiet: true,
+
+                'test_something': function () {
+                    flag += 'a';
+                },
+
+                'this is also a test': function () {
+                    flag += 'b';
+                },
+
+                'this_is_not_a_test': function () {
+                    flag += 'err';
+                }
+            });
+
+            testcase.run();
+
+            Triffid.Assert.isTrue('ab' === flag, 'expected such function to have been called');
+        }
+    })
+    .add({
+
         name: 'smoke tests',
 
         'should run all the tests': function () {
