@@ -355,5 +355,26 @@ var Assert = {
         message = this.initMessage(message);
         message+= "Expected a date but got " + value + " (" + (typeof value) + ") instead";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is a regular expression.
+     *
+     * @method isRegExp
+     * @param value {Any} The value to test.
+     * @param [message] {String} Message to display if the assertion fails.
+     */
+    isRegExp: function (value, message) {
+
+        // @todo move to some kind of enum.
+        var re_type = Object.prototype.toString.call(/^foo$/);
+
+        if (Object.prototype.toString.call(value) === re_type) {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected a regular expression but got " + value + " (" + (typeof value) + ") instead";
+        T.fail(message);
     }
 };

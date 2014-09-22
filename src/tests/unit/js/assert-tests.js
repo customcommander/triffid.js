@@ -198,5 +198,15 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isDate({});
             }, null, "expected failure for `{}`");
+        },
+
+        'test: isRegExp()': function () {
+
+            Triffid.Assert.isRegExp(/\w+/             , 'expected success for `/\w+/`');
+            Triffid.Assert.isRegExp(new RegExp("\\w+"), 'expected success for `new RegExp("\\\\w+")`');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isRegExp({});
+            }, null, 'expected failure for `{}`');
         }
     })
