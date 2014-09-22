@@ -189,5 +189,14 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isFunction([]);
             }, null, "expected failure for `[]`");
+        },
+
+        'test: isDate()': function () {
+
+            Triffid.Assert.isDate(new Date(), "expected success for `new Date()`");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isDate({});
+            }, null, "expected failure for `{}`");
         }
     })

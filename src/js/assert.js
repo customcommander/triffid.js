@@ -337,5 +337,23 @@ var Assert = {
         message = this.initMessage(message);
         message+= "Expected a function but got " + value + " (" + (typeof value) + ") instead";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is a date.
+     *
+     * @method isDate
+     * @param value {Any} The value to test.
+     * @param [message] {String} Message to display if the assertion fails.
+     */
+    isDate: function (value, message) {
+
+        if (Object.prototype.toString.call(value) === '[object Date]') {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected a date but got " + value + " (" + (typeof value) + ") instead";
+        T.fail(message);
     }
 };
