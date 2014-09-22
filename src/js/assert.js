@@ -319,5 +319,23 @@ var Assert = {
         message = this.initMessage(message);
         message+= "Expected an array but got " + value + " (" + (typeof value) + ") instead";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that value is a function.
+     *
+     * @method isFunction
+     * @param value {Any} The value to test.
+     * @param [message] {String} Message to display if the assertion fails.
+     */
+    isFunction: function (value, message) {
+
+        if (typeof value === 'function') {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected a function but got " + value + " (" + (typeof value) + ") instead";
+        T.fail(message);
     }
 };

@@ -182,5 +182,12 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isArray({});
             }, null, "expected failure for {}");
+        },
+
+        'test: isFunction()': function () {
+            Triffid.Assert.isFunction(function () {}, "expected success for `function () {}`");
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isFunction([]);
+            }, null, "expected failure for `[]`");
         }
     })
