@@ -1,4 +1,9 @@
-minify:
+all: setup assemble minify
+
+setup:
+	mkdir -p ../build/triffid
+
+assemble:
 	cat \
 		js/intro.js \
 		js/console.js \
@@ -13,6 +18,10 @@ minify:
 		js/testrunner.js \
 		js/triffid.js \
 		js/outro.js \
-			>../build/triffid/triffid.min.js
+			>../build/triffid/triffid.js
 
-.PHONY: minify
+#TODO: proper minification when ready
+minify:
+	cp ../build/triffid/triffid.js ../build/triffid/triffid.min.js
+
+.PHONY: all setup assemble minify
