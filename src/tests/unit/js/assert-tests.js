@@ -172,5 +172,15 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isNotUndefined(und);
             }, null, "expected failure because undefined is undefined");
+        },
+
+        'test: isArray()': function () {
+
+            Triffid.Assert.isArray([]   , "expected success for []");
+            Triffid.Assert.isArray([1,2], "expected success for [1,2]");
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isArray({});
+            }, null, "expected failure for {}");
         }
     })

@@ -294,5 +294,30 @@ var Assert = {
         message = this.initMessage(message);
         message+= "Expected a non undefined value";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is an array.
+     *
+     * @example
+     *     Triffid.Assert.isArray([]); // pass
+     *     Triffid.Assert.isArray({}); // fail
+     *
+     * @method isArray
+     * @param value {Any} The value to test.
+     * @param [message] {String} Message to display when the assertion fails.
+     */
+    isArray: function (value, message) {
+
+        // @todo move this kind of things into a util.js file?
+        if (Array.isArray && Array.isArray(value)) {
+            return;
+        } else if (Object.prototype.toString.call(value) === '[object Array]') {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected an array but got " + value + " (" + (typeof value) + ") instead";
+        T.fail(message);
     }
 };
