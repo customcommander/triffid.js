@@ -208,5 +208,21 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isRegExp({});
             }, null, 'expected failure for `{}`');
+        },
+
+        'test: isValue()': function () {
+
+            var und;
+
+            Triffid.Assert.isValue(0 , 'expected success for `0`');
+            Triffid.Assert.isValue("", 'expected success for `""`');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isValue(null);
+            }, null, 'expected failure for `null`');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isValue(und);
+            }, null, 'expected failure for `undefined`');
         }
     })

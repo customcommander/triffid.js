@@ -376,5 +376,32 @@ var Assert = {
         message = this.initMessage(message);
         message+= "Expected a regular expression but got " + value + " (" + (typeof value) + ") instead";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is neither null nor undefined.
+     *
+     * @example
+     *     Triffid.Assert.isValue(0);         // pass
+     *     Triffid.Assert.isValue("");        // pass
+     *     Triffid.Assert.isValue(null);      // fail
+     *     Triffid.Assert.isValue(undefined); // fail
+     *
+     * @method isValue
+     * @param value {Any} The value to test.
+     * @param [message] {String} Message to display if the assertion fails.
+     */
+    isValue: function (value, message) {
+
+        var und;
+
+        if (value !== null && value !== und) {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected a value that is neither undefined nor null ";
+        message+= "but got " + value + " (" + (typeof value) + ") instead";
+        T.fail(message);
     }
 };
