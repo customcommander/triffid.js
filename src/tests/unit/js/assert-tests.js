@@ -239,5 +239,17 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isNaN(und);
             }, null, 'expected failure for `undefined`');
+        },
+
+        'test: isNotNaN()': function () {
+
+            var und;
+
+            Triffid.Assert.isNotNaN(999, 'expected success for `999`');
+            Triffid.Assert.isNotNaN(und, 'expected success for `undefined`');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.isNotNaN(NaN);
+            }, null, 'expected failure for `NaN`');
         }
     })

@@ -423,5 +423,26 @@ var Assert = {
         message = this.initMessage(message);
         message+= "Expected NaN but got " + value + " (" + (typeof value) + ") instead";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is not NaN.
+     *
+     * @method isNotNaN
+     * @param value {Any} The value to test.
+     * @param [message] {String} Message to display if the assertion fails.
+     */
+    isNotNaN: function (value, message) {
+
+        // NaN === NaN is always false
+        // NaN is the only value that doesn't equate to itself.
+        // isNaN() is very very buggy so not using it.
+        if ( value === value ) {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected a non NaN value but got one :'(";
+        T.fail(message);
     }
 };
