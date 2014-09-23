@@ -403,5 +403,25 @@ var Assert = {
         message+= "Expected a value that is neither undefined nor null ";
         message+= "but got " + value + " (" + (typeof value) + ") instead";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is NaN.
+     *
+     * @method isNaN
+     * @param value {Any} The value to test.
+     * @param [message] {String} Message to display if the assertion fails.
+     */
+    isNaN: function (value, message) {
+
+        // NaN !== NaN is always true
+        // NaN is the only value that doesn't equate to itself.
+        if ( value !== value ) {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected NaN but got " + value + " (" + (typeof value) + ") instead";
+        T.fail(message);
     }
 };
