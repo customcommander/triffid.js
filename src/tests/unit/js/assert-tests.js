@@ -251,5 +251,19 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.isNotNaN(NaN);
             }, null, 'expected failure for `NaN`');
+        },
+
+        'test: areSame()': function () {
+
+            var arr_ref = [];
+            var obj_ref = {};
+
+            Triffid.Assert.areSame(10, 10, 'expected success for `10` and `10`');
+            Triffid.Assert.areSame(arr_ref, arr_ref, 'expected success for two references of the same array');
+            Triffid.Assert.areSame(obj_ref, obj_ref, 'expected success for two references of the same object');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.areSame(10, "10");
+            }, null, 'expected failure for `10` (number) and `"10"` (string)');
         }
     })
