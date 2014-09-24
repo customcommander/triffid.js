@@ -467,5 +467,28 @@ var Assert = {
         message+= "Expected " + expected + " (" + (typeof expected) + ") ";
         message+= "and " + value + " (" + (typeof value) + ") to have been the same";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that two are not the same.
+     *
+     * This uses the triple equality so no type coercion can occur.
+     *
+     * @method areNotSame
+     * @param expected {Any} The expected value.
+     * @param valye {Any} The vale to test.
+     * @param [message] {String} Message to display if the assertion fails.
+     * @todo throw error when trying to compare NaNs together
+     */
+    areNotSame: function (expected, value, message) {
+
+        if (expected !== value) {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected " + expected + " (" + (typeof expected) + ") ";
+        message+= "and " + value + " (" + (typeof value) + ") to have been different";
+        T.fail(message);
     }
 };

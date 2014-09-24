@@ -265,5 +265,17 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.areSame(10, "10");
             }, null, 'expected failure for `10` (number) and `"10"` (string)');
+        },
+
+        'test: areNotSame()': function () {
+
+            var und;
+
+            Triffid.Assert.areNotSame(10, '10',  'expected success for 10 (number) and  10 (string)');
+            Triffid.Assert.areNotSame(null, und, 'expected success for null and undefined');
+
+            Triffid.Assert.throwsError(function () {
+                Triffid.Assert.areNotSame(10, 10);
+            }, null, 'expected failure for 10 (number) and 10 (number)');
         }
     })
