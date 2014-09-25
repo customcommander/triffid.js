@@ -277,5 +277,21 @@ Triffid.suite('assertion suite')
             Triffid.Assert.throwsError(function () {
                 Triffid.Assert.areNotSame(10, 10);
             }, null, 'expected failure for 10 (number) and 10 (number)');
+        },
+
+        'test: isInstanceOf()': function () {
+
+            var foo;
+
+            function Foo() {}
+
+            foo = new Foo();
+
+            Triffid.Assert.isInstanceOf(Foo, foo, 'expected success for `var foo = new Foo()`');
+
+            Triffid.Assert.throwsError(function () {
+                var bar = {};
+                Triffid.Assert.isInstanceOf(Foo, bar);
+            }, null, 'expected failure because bar is definitely not an instance of Foo');
         }
     })

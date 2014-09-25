@@ -490,5 +490,25 @@ var Assert = {
         message+= "Expected " + expected + " (" + (typeof expected) + ") ";
         message+= "and " + value + " (" + (typeof value) + ") to have been different";
         T.fail(message);
+    },
+
+    /**
+     * Asserts that a value is an instance of given constructor.
+     *
+     * @method isInstanceOf
+     * @param expected {Function} Expected constructor.
+     * @param value {Any} The value to test.
+     * @param [message] {String} Message to display if the assertion fails.
+     * @todo throw error when expected is not a function
+     */
+    isInstanceOf: function (expected, value, message) {
+
+        if (value instanceof expected) {
+            return;
+        }
+
+        message = this.initMessage(message);
+        message+= "Expected " + value + " to have been an instance of " + expected;
+        T.fail(message);
     }
 };
