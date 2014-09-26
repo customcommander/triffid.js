@@ -34,37 +34,72 @@ Triffid.suite('assertion suite')
 
         'test: throwsError()': function () {
 
+            var failure = false;
+
             function MyError() {}
 
-            Triffid.Assert.throwsError(function () {
-                throw new Error('xxx');
-            }, null, 'should have succeeded without the second argument');
+            // The following tests should all pass.
+            // So we should never catch an error.
 
-            Triffid.Assert.throwsError(function () {
-                throw new MyError();
-            }, MyError, 'should have succeeded if the error is an instance of given constructor');
-
-            Triffid.Assert.throwsError(function () {
-                throw new Error('foobar');
-            }, 'foobar', 'should have succeeded if error message matches');
-
-            Triffid.Assert.throwsError(function () {
+            try {
                 Triffid.Assert.throwsError(function () {
-                    // empty function intended
+                    throw new Error('xxx');
                 });
-            }, null, 'should have failed if the function does not throw an error');
+            } catch (e) {
+                Triffid.fail('expected success because the function does throw an error');
+            }
 
-            Triffid.Assert.throwsError(function () {
+            try {
+                Triffid.Assert.throwsError(function () {
+                    throw new MyError();
+                }, MyError);
+            } catch (e) {
+                Triffid.fail('expected success because the function does throw an error of the expected type');
+            }
+
+            try {
+                Triffid.Assert.throwsError(function () {
+                    throw new Error('foobar');
+                }, 'foobar');
+            } catch (e) {
+                Triffid.fail('expected success because the error message is the expected one');
+            }
+
+            // The following tests should all fail and throw an error.
+            // So we should never execute this line: `failure = true`
+
+            try {
+                Triffid.Assert.throwsError(function () {
+                    return 'not_throwing_an_error';
+                });
+                failure = true;
+            } catch (e) {}
+
+            if (failure) {
+                Triffid.fail('expected failure because the function does not throw an error');
+            }
+
+            try {
                 Triffid.Assert.throwsError(function () {
                     throw new MyError();
                 }, Error);
-            }, null,  'should have failed if error is not from expected constructor');
+                failure = true;
+            } catch (e) {}
 
-            Triffid.Assert.throwsError(function () {
+            if (failure) {
+                Triffid.fail('expected failure because the error thrown is not of the expected type');
+            }
+
+            try {
                 Triffid.Assert.throwsError(function () {
                     throw new Error('abc');
                 }, 'xyz');
-            }, null,  'should have failed if error message does not match');
+                failure = true;
+            } catch (e) {}
+
+            if (failure) {
+                Triffid.fail('expected failure because the error message is not the expected one');
+            }
         },
 
         'test: isString()': function () {

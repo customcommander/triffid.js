@@ -93,29 +93,32 @@ var Assert = {
      */
     throwsError: function (func, err, message) {
 
-        var didnt_throw = false;
-
         message = this.initMessage(message);
 
         try {
             func();
-            didnt_throw = true;
         } catch (e) {
 
+            // if err is a function, fail if thrown error is not an instance of that constructor.
             if (typeof err === "function" && !(e instanceof err)) {
                 message+= "Error thrown is not from expected constructor.";
                 T.fail(message);
 
+            // if err is a string, fail if error message is not that string
             } else if (typeof err === "string" && e.message && e.message !== err) {
                 message+= "Expected error message to have been '"+ e.message +"' but got '"+err+"' instead.";
                 T.fail(message);
             }
+
+            // if we reached that point if means that the function did throw an
+            // error and if we had specific expectations about the error type
+            // or message they have been met.
+            return;
         }
 
-        if (didnt_throw) {
-            message+= "Expected an error to have been thrown but it didn't.";
-            T.fail(message);
-        }
+        // if we reached that point however it means that the function didn't throw at all! bad.
+        message+= "Expected function to have thrown an error but it didn't.";
+        T.fail(message);
     },
 
     /**
